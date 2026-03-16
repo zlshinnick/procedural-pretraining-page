@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 220" fill="none">
+  <rect width="260" height="220" rx="10" fill="#f5faf5"/>
+
+  <!-- Sort -->
+  <g transform="translate(16, 10)">
+    <text x="0" y="14" font-family="sans-serif" font-size="12" font-weight="700" fill="#16a34a">Sort</text>
+    <g transform="translate(0, 26)">
+      <text x="0" y="16" font-family="monospace" font-size="14" fill="#64748b">5, 2, 8, 1, 4</text>
+      <text x="114" y="16" font-family="sans-serif" font-size="14" fill="#16a34a" font-weight="700">&#x2192;</text>
+      <text x="136" y="16" font-family="monospace" font-size="14" font-weight="700" fill="#1e293b">1, 2, 4, 5, 8</text>
+    </g>
+  </g>
+
+  <!-- Set -->
+  <g transform="translate(16, 62)">
+    <text x="0" y="14" font-family="sans-serif" font-size="12" font-weight="700" fill="#2563eb">Set</text>
+    <text x="26" y="14" font-family="sans-serif" font-size="9" fill="#94a3b8">(deduplicate)</text>
+    <g transform="translate(0, 26)">
+      <text x="0" y="16" font-family="monospace" font-size="14" fill="#64748b">a, b, a, c, b</text>
+      <text x="114" y="16" font-family="sans-serif" font-size="14" fill="#2563eb" font-weight="700">&#x2192;</text>
+      <text x="136" y="16" font-family="monospace" font-size="14" font-weight="700" fill="#1e293b">a, b, c</text>
+    </g>
+  </g>
+
+  <!-- Union -->
+  <g transform="translate(16, 114)">
+    <text x="0" y="14" font-family="sans-serif" font-size="12" font-weight="700" fill="#9333ea">Union</text>
+    <g transform="translate(0, 26)">
+      <text x="0" y="16" font-family="monospace" font-size="14" fill="#64748b">a, b | b, c</text>
+      <text x="114" y="16" font-family="sans-serif" font-size="14" fill="#9333ea" font-weight="700">&#x2192;</text>
+      <text x="136" y="16" font-family="monospace" font-size="14" font-weight="700" fill="#1e293b">a, b, c</text>
+    </g>
+  </g>
+
+  <!-- Stack -->
+  <g transform="translate(16, 166)">
+    <text x="0" y="14" font-family="sans-serif" font-size="12" font-weight="700" fill="#d97706">Stack</text>
+    <text x="38" y="14" font-family="sans-serif" font-size="9" fill="#94a3b8">(push / pop)</text>
+    <g transform="translate(0, 26)">
+      <text x="0" y="14" font-family="monospace" font-size="13" fill="#64748b">push(3) push(7) pop()</text>
+      <text x="162" y="14" font-family="sans-serif" font-size="14" fill="#d97706" font-weight="700">&#x2192;</text>
+      <rect x="184" y="-1" width="30" height="20" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+      <text x="199" y="13" font-family="monospace" font-size="13" font-weight="700" fill="#92400e" text-anchor="middle">3</text>
+      <text x="222" y="12" font-family="sans-serif" font-size="9" fill="#94a3b8">top</text>
+    </g>
+  </g>
+</svg>

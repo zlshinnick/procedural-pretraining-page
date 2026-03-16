@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Procedural Pretraining</title>
+  <meta name="description" content="A lightweight warm-up that builds algorithmic scaffolding before large-scale pretraining — across language, code, math, and vision.">
+  <meta property="og:title" content="Procedural Pretraining">
+  <meta property="og:description" content="A lightweight warm-up that builds algorithmic scaffolding before large-scale pretraining — across language, code, math, and vision.">
+  <meta property="og:image" content="static/images/hero_overview.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Procedural Pretraining">
+  <meta name="twitter:description" content="A lightweight warm-up that builds algorithmic scaffolding before large-scale pretraining — across language, code, math, and vision.">
+  <meta name="twitter:image" content="static/images/hero_overview.png">
+  <link rel="icon" href="static/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Procedural Pretraining</a>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#papers">Papers &amp; Code</a>
+      <a href="#method">Method</a>
+      <a href="#results-llm">LLM Results</a>
+      <a href="#results-vit">ViT Results</a>
+      <a href="#analysis">Analysis</a>
+      <a href="#bibtex">BibTeX</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<header id="hero" class="section hero-section">
+  <div class="container">
+    <h1 class="hero-title">Procedural Pretraining</h1>
+    <p class="hero-tagline">Pretraining on procedurally generated, abstract structured data for improving performance and data efficiency across language, code, math, and vision.</p>
+
+    <div class="hero-logos">
+      <img src="static/images/logo_adelaide.png" alt="Adelaide University" class="hero-logo">
+      <img src="static/images/logo_aiml.png" alt="Australian Institute for Machine Learning" class="hero-logo hero-logo-wide">
+      <img src="static/images/logo_epfl.png" alt="EPFL" class="hero-logo">
+      <img src="static/images/logo_idiap.png" alt="Idiap Research Institute" class="hero-logo">
+    </div>
+
+    <div class="hero-diagram">
+      <img src="static/images/hero_overview.png" alt="Procedural pretraining overview: a randomly initialized model undergoes procedural pretraining on formal languages, simple algorithms, and cellular automata, producing a procedurally-pretrained model that then undergoes standard pretraining on text, code, and math to produce the final base model." class="hero-diagram-img">
+    </div>
+
+    <ul class="hero-bullets">
+      <li>A &lsquo;pre-pretraining&rsquo; that injects useful priors for semantic pretraining.</li>
+      <li>A &lsquo;structured initialization&rsquo; that does not involve semantics.</li>
+    </ul>
+
+    <div class="hero-links">
+      <a href="https://arxiv.org/abs/2601.21725" class="btn" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Paper 1 (LLMs)
+      </a>
+      <a href="https://arxiv.org/abs/2511.13945" class="btn" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Paper 2 (ViTs)
+      </a>
+      <a href="https://github.com/zlshinnick/procedural-pretraining" class="btn" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        Code (LLMs)
+      </a>
+      <a href="#bibtex" class="btn btn-outline">BibTeX</a>
+    </div>
+  </div>
+</header>
+
+<!-- ========== OVERVIEW ========== -->
+<section id="overview" class="section reveal">
+  <div class="container">
+    <h2 class="section-title">Overview</h2>
+    <div class="overview-text">
+      <p>
+        Current pretraining paradigms expose models directly to web-scale data, text, code, images, expecting them to simultaneously learn both <em>world knowledge</em> and <em>reasoning mechanisms</em>. We show that a brief initial exposure to <strong>procedural data</strong>, sequences generated by formal grammars and simple algorithms, completely devoid of semantic content, can dramatically improve subsequent training.
+      </p>
+      <p>
+        Much like how infants learn simple logic and pattern matching before higher reasoning, procedural pretraining builds <strong>general computational mechanisms</strong> into transformers before they encounter real-world data. This scaffolding accelerates convergence, improves final performance, and reduces data requirements across diverse domains.
+      </p>
+      <p>
+        We demonstrate these benefits for <strong>large language models</strong> (on natural language, code, and mathematics) and for <strong>vision transformers</strong> (on image classification), showing that procedural data injects useful modality-agnostic priors that complement standard training.
+      </p>
+    </div>
+
+    <div class="stat-cards">
+      <div class="stat-card">
+        <div class="stat-number">45%</div>
+        <div class="stat-label">fewer language tokens needed to reach equivalent loss on C4</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">33%</div>
+        <div class="stat-label">fewer code tokens needed on CodeParrot</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">+1.7%</div>
+        <div class="stat-label">ImageNet-1K accuracy gain with only 1% procedural budget</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">28%</div>
+        <div class="stat-label">fewer real images needed for equivalent ImageNet accuracy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PAPERS & CODE ========== -->
+<section id="papers" class="section section-alt reveal">
+  <div class="container">
+    <h2 class="section-title">Papers &amp; Code</h2>
+    <div class="paper-cards">
+
+      <div class="paper-card">
+        <div class="paper-venue">Preprint &middot; January 2026</div>
+        <h3 class="paper-title">Procedural Pretraining: Warming Up Language Models with Abstract Data</h3>
+        <img src="static/images/teaser_llm.png" alt="Procedural pretraining pipeline and per-domain results for language models" class="paper-teaser">
+        <div class="paper-authors">
+          Liangze Jiang*,
+          Zachary Shinnick*,
+          Anton van den Hengel,
+          Hemanth Saratchandran,
+          Damien Teney
+        </div>
+        <p class="paper-note">* Equal contribution</p>
+        <div class="paper-links">
+          <a href="https://arxiv.org/abs/2601.21725" class="btn btn-sm" target="_blank">arXiv</a>
+          <a href="https://github.com/zlshinnick/procedural-pretraining" class="btn btn-sm" target="_blank">Code</a>
+          <button class="btn btn-sm btn-outline bibtex-toggle" data-target="bib1">BibTeX</button>
+        </div>
+        <div class="bibtex-block" id="bib1">
+<pre><code>@article{jiang2025proceduralpretraining,
+  title={Procedural Pretraining: Warming Up Language Models with Abstract Data},
+  author={Jiang, Liangze and Shinnick, Zachary and van den Hengel, Anton and Saratchandran, Hemanth and Teney, Damien},
+  journal={arXiv preprint arXiv:2601.21725},
+  year={2026},
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="paper-card">
+        <div class="paper-venue">CVPR 2026</div>
+        <h3 class="paper-title">Can You Learn to See Without Images? Procedural Warm-Up for Vision Transformers</h3>
+        <img src="static/images/teaser_vit.png" alt="Procedural warm-up pipeline for vision transformers" class="paper-teaser">
+        <div class="paper-authors">
+          Zachary Shinnick,
+          Liangze Jiang,
+          Hemanth Saratchandran,
+          Damien Teney,
+          Anton van den Hengel
+        </div>
+        <div class="paper-links">
+          <a href="https://arxiv.org/abs/2511.13945" class="btn btn-sm" target="_blank">arXiv</a>
+          <button class="btn btn-sm btn-outline bibtex-toggle" data-target="bib2">BibTeX</button>
+        </div>
+        <div class="bibtex-block" id="bib2">
+<pre><code>@inproceedings{shinnick2026canyoulearn,
+  title={Can You Learn to See Without Images? Procedural Warm-Up for Vision Transformers},
+  author={Shinnick, Zachary and Jiang, Liangze and Saratchandran, Hemanth and Teney, Damien and van den Hengel, Anton},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year={2026},
+}</code></pre>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== METHOD OVERVIEW ========== -->
+<section id="method" class="section reveal">
+  <div class="container">
+    <h2 class="section-title">Method</h2>
+
+    <!-- What is procedural data? -->
+    <div class="subsection">
+      <h3 class="subsection-title">What is procedural data?</h3>
+      <p>
+        Procedural data is generated by explicit algorithms, not by trained models. It is infinite, controllable, and verifiable. We use several families of data-generating algorithms spanning different levels of structural complexity:
+      </p>
+      <div class="method-grid">
+        <div class="method-card">
+          <img src="static/images/icon_formal_languages.svg" alt="Balanced bracket sequences" class="method-card-img">
+          <h4>Formal Languages</h4>
+          <p><strong>k-Dyck:</strong> Balanced parentheses with hierarchical, stack-based dependencies (context-free).</p>
+          <p><strong>k-Dyck Shuffle:</strong> Crossing and interleaved dependencies (context-sensitive).</p>
+          <p><strong>WW:</strong> A string concatenated with its copy (regular).</p>
+        </div>
+        <div class="method-card">
+          <img src="static/images/icon_simple_algorithms.svg" alt="Sort, Set, and Stack operations" class="method-card-img">
+          <h4>Simple Algorithms</h4>
+          <p><strong>Sort</strong>, <strong>Set</strong> (deduplication), <strong>Union</strong>, <strong>Reverse</strong>, <strong>Delete</strong>, <strong>Identity</strong>, sequence transformations that require precise symbol manipulation.</p>
+          <p><strong>Stack:</strong> Simulating push/pop operations on a stack memory.</p>
+        </div>
+        <div class="method-card">
+          <img src="static/images/icon_cellular_automata.svg" alt="Cellular automaton grid evolution" class="method-card-img">
+          <h4>Cellular Automata</h4>
+          <p><strong>ECA Rule 110:</strong> A binary sequence evolving via deterministic Markovian dynamics. The model predicts the next state of the automaton.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Pipeline -->
+    <div class="subsection">
+      <h3 class="subsection-title">The procedural pretraining pipeline</h3>
+      <p>
+        Procedural pretraining is a two-stage process: a brief <strong>warm-up</strong> on procedural data, followed by <strong>standard training</strong> on the target domain. The warm-up is lightweight, typically 0.1&ndash;1% of the total training budget.
+      </p>
+
+      <div class="pipeline-diagram">
+        <div class="pipeline-stage stage-procedural">
+          <div class="stage-label">Stage 1: Procedural Warm-Up</div>
+          <div class="stage-content">
+            <div class="stage-icon">
+              <span class="bracket-anim">( [ ] ) { }</span>
+            </div>
+            <p>Train on procedural sequences with next-token or masked-token prediction</p>
+          </div>
+        </div>
+        <div class="pipeline-arrow">
+          <svg width="40" height="24" viewBox="0 0 40 24"><path d="M0 12h32m0 0l-8-8m8 8l-8 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="pipeline-stage stage-standard">
+          <div class="stage-label">Stage 2: Standard Training</div>
+          <div class="stage-content">
+            <div class="stage-icon-group">
+              <span class="stage-domain">Text</span>
+              <span class="stage-domain">Code</span>
+              <span class="stage-domain">Math</span>
+              <span class="stage-domain">Images</span>
+            </div>
+            <p>Continue on target domain data with standard objectives</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipeline-details">
+        <div class="pipeline-detail">
+          <h4>For Language Models</h4>
+          <p>GPT-2&ndash;style decoder-only transformers trained with next-token prediction. Procedural sequences use a character-level vocabulary. Token embeddings are reinitialized before standard pretraining since the vocabularies differ.</p>
+        </div>
+        <div class="pipeline-detail">
+          <h4>For Vision Transformers</h4>
+          <p>Standard ViTs with their visual patch embeddings bypassed, abstract symbols are mapped to random frozen embeddings instead. The model is trained for masked-token prediction. After warm-up, the procedural embeddings and prediction head are discarded, and standard image training proceeds normally.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additive vs Substitutive -->
+    <div class="subsection">
+      <h3 class="subsection-title">Evaluation settings</h3>
+      <div class="settings-grid">
+        <div class="setting-card">
+          <h4>Additive Setting</h4>
+          <p>Standard training budget is held fixed. Procedural data is added on top to measure absolute performance gains, testing whether procedural data provides a training signal that standard data alone does not impart.</p>
+        </div>
+        <div class="setting-card">
+          <h4>Substitutive Setting</h4>
+          <p>Total budget is fixed. Some standard data is replaced with procedural data to measure data savings, quantifying how efficiently procedural tokens can substitute for real data without degrading performance.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== RESULTS: LANGUAGE MODELS ========== -->
+<section id="results-llm" class="section section-alt reveal">
+  <div class="container">
+    <h2 class="section-title">Key Results: Language Models</h2>
+
+    <div class="subsection">
+      <h3 class="subsection-title">Procedural pretraining improves standard pretraining</h3>
+      <p>
+        A small amount of procedural data front-loaded before standard pretraining consistently accelerates training and improves final performance across natural language, code, and mathematics.
+      </p>
+      <div class="llm-charts-grid">
+        <div class="llm-chart-panel">
+          <h4>C4 <span class="chart-metric-sub">Language</span></h4>
+          <div class="line-chart-wrap line-chart-sm" id="c4Chart">
+            <div class="lc-tooltip" id="c4Tooltip"></div>
+            <canvas id="c4Canvas" width="1200" height="560"></canvas>
+          </div>
+        </div>
+        <div class="llm-chart-panel">
+          <h4>CodeParrot <span class="chart-metric-sub">Code</span></h4>
+          <div class="line-chart-wrap line-chart-sm" id="cpChart">
+            <div class="lc-tooltip" id="cpTooltip"></div>
+            <canvas id="cpCanvas" width="1200" height="560"></canvas>
+          </div>
+        </div>
+        <div class="llm-chart-panel">
+          <h4>DeepMind-Math <span class="chart-metric-sub">Mathematics</span></h4>
+          <div class="line-chart-wrap line-chart-sm" id="dmChart">
+            <div class="lc-tooltip" id="dmTooltip"></div>
+            <canvas id="dmCanvas" width="1200" height="560"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="bar-legend" style="margin-top: 16px;">
+        <span class="legend-item"><span class="legend-swatch" style="background: #B2DFDB;"></span> Sort</span>
+        <span class="legend-item"><span class="legend-swatch" style="background: #AFCBFF;"></span> Set</span>
+        <span class="legend-item"><span class="legend-swatch" style="background: #F5A9A9;"></span> Union</span>
+        <span class="legend-item"><span class="legend-swatch" style="background: #A9A9A9;"></span> No pretraining</span>
+      </div>
+      <figcaption>Procedural pretraining accelerates and improves standard pretraining across all three domains. Hover over the charts to see exact values at each step.</figcaption>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection-title">Remarkable data efficiency</h3>
+      <p>
+        In the substitutive setting, procedural pretraining can dramatically reduce the amount of standard data needed. As little as 0.1&ndash;0.3% extra procedural tokens enables equivalent performance with far less real data.
+      </p>
+      <div class="eff-grid">
+        <div class="eff-panel">
+          <h4 class="eff-panel-title">C4 <span class="eff-panel-sub">Natural Language</span></h4>
+          <div class="eff-chart">
+            <div class="eff-col">
+              <span class="eff-top-label">655M</span>
+              <div class="eff-bar-wrap" style="height: 100%">
+                <div class="eff-fill eff-fill-data" style="height: 100%"></div>
+              </div>
+              <span class="eff-bot-label">Baseline</span>
+            </div>
+            <div class="eff-col">
+              <span class="eff-top-label">367M <span class="eff-top-label-sub">total</span></span>
+              <div class="eff-bar-wrap" style="height: 100%">
+                <div class="eff-fill eff-fill-saved" style="height: 44%">
+                  <span class="eff-saved-text">288M<br>saved</span>
+                </div>
+                <div class="eff-fill eff-fill-data" style="height: 56%"></div>
+              </div>
+              <span class="eff-bot-label">+ Procedural</span>
+            </div>
+          </div>
+          <div class="eff-badge"><strong>45%</strong> less data</div>
+        </div>
+
+        <div class="eff-panel">
+          <h4 class="eff-panel-title">CodeParrot <span class="eff-panel-sub">Code</span></h4>
+          <div class="eff-chart">
+            <div class="eff-col">
+              <span class="eff-top-label">983M</span>
+              <div class="eff-bar-wrap" style="height: 100%">
+                <div class="eff-fill eff-fill-data" style="height: 100%"></div>
+              </div>
+              <span class="eff-bot-label">Baseline</span>
+            </div>
+            <div class="eff-col">
+              <span class="eff-top-label">664M <span class="eff-top-label-sub">total</span></span>
+              <div class="eff-bar-wrap" style="height: 100%">
+                <div class="eff-fill eff-fill-saved" style="height: 32%">
+                  <span class="eff-saved-text">319M<br>saved</span>
+                </div>
+                <div class="eff-fill eff-fill-data" style="height: 68%"></div>
+              </div>
+              <span class="eff-bot-label">+ Procedural</span>
+            </div>
+          </div>
+          <div class="eff-badge"><strong>33%</strong> less data</div>
+        </div>
+
+        <div class="eff-panel">
+          <h4 class="eff-panel-title">DeepMind-Math <span class="eff-panel-sub">Mathematics</span></h4>
+          <div class="eff-chart">
+            <div class="eff-col">
+              <span class="eff-top-label">1.64B</span>
+              <div class="eff-bar-wrap" style="height: 100%">
+                <div class="eff-fill eff-fill-data" style="height: 100%"></div>
+              </div>
+              <span class="eff-bot-label">Baseline</span>
+            </div>
+            <div class="eff-col">
+              <span class="eff-top-label">1.41B <span class="eff-top-label-sub">total</span></span>
+              <div class="eff-bar-wrap" style="height: 100%">
+                <div class="eff-fill eff-fill-saved" style="height: 14%">
+                  <span class="eff-saved-text">0.23B</span>
+                </div>
+                <div class="eff-fill eff-fill-data" style="height: 86%"></div>
+              </div>
+              <span class="eff-bot-label">+ Procedural</span>
+            </div>
+          </div>
+          <div class="eff-badge"><strong>14%</strong> less data</div>
+        </div>
+      </div>
+      <div class="bar-legend" style="margin-top: 20px;">
+        <span class="legend-item"><span class="legend-swatch" style="background: #6aa3e0;"></span> Semantic tokens</span>
+        <span class="legend-item"><span class="legend-swatch" style="background: repeating-linear-gradient(45deg, #cbd5e1, #cbd5e1 2px, #f1f5f9 2px, #f1f5f9 4px); border: 1px solid #cbd5e1;"></span> Saved</span>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection-title">Scales with model size</h3>
+      <p>
+        The benefits of procedural pretraining persist and remain consistent when scaling up to 350M and 1.3B parameter models, trained on up to 10.5B tokens. Larger models continue to show clear improvements from the procedural warm-up.
+      </p>
+      <div class="scaling-charts">
+        <div class="scaling-chart-group">
+          <h4>C4: Language <span class="chart-metric">(Perplexity &darr;)</span></h4>
+          <div class="bar-chart">
+            <div class="bar-pair">
+              <div class="bar-label">350M</div>
+              <div class="bar-tracks">
+                <div class="bar-row">
+                  <div class="bar bar-baseline" style="width: 100%"><span class="bar-value">40.3</span></div>
+                </div>
+                <div class="bar-row">
+                  <div class="bar bar-ours" style="width: 96.8%"><span class="bar-value">39.0</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="bar-pair">
+              <div class="bar-label">1.3B</div>
+              <div class="bar-tracks">
+                <div class="bar-row">
+                  <div class="bar bar-baseline" style="width: 71.5%"><span class="bar-value">28.8</span></div>
+                </div>
+                <div class="bar-row">
+                  <div class="bar bar-ours" style="width: 67.7%"><span class="bar-value">27.3</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="scaling-chart-group">
+          <h4>CodeParrot: Code <span class="chart-metric">(Perplexity &darr;)</span></h4>
+          <div class="bar-chart">
+            <div class="bar-pair">
+              <div class="bar-label">350M</div>
+              <div class="bar-tracks">
+                <div class="bar-row">
+                  <div class="bar bar-baseline" style="width: 100%"><span class="bar-value">4.97</span></div>
+                </div>
+                <div class="bar-row">
+                  <div class="bar bar-ours" style="width: 93%"><span class="bar-value">4.62</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="bar-pair">
+              <div class="bar-label">1.3B</div>
+              <div class="bar-tracks">
+                <div class="bar-row">
+                  <div class="bar bar-baseline" style="width: 69.4%"><span class="bar-value">3.45</span></div>
+                </div>
+                <div class="bar-row">
+                  <div class="bar bar-ours" style="width: 67.6%"><span class="bar-value">3.36</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bar-legend">
+        <span class="legend-item"><span class="legend-swatch legend-baseline"></span> No procedural pretraining</span>
+        <span class="legend-item"><span class="legend-swatch legend-ours"></span> Ours (Union)</span>
+      </div>
+      <p class="scaling-note">These improvements also persist after downstream fine-tuning on WikiText-103, GLUE, and PY150, confirming that procedural pretraining provides lasting benefits not washed away by subsequent training.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== RESULTS: VISION TRANSFORMERS ========== -->
+<section id="results-vit" class="section reveal">
+  <div class="container">
+    <h2 class="section-title">Key Results: Vision Transformers</h2>
+
+    <div class="subsection">
+      <h3 class="subsection-title">Learning to see without images</h3>
+      <p>
+        A ViT-B/16 pretrained on procedural k-Dyck data, with just 1% of the total training budget, followed by standard ImageNet-1K training achieves a <strong>+1.72%</strong> improvement in top-1 accuracy over default initialization. This procedural data contains no visual or semantic content whatsoever.
+      </p>
+      <figure class="figure">
+        <div class="line-chart-wrap" id="vitChart">
+          <div class="lc-tooltip" id="vitTooltip"></div>
+          <canvas id="vitCanvas" width="1200" height="560"></canvas>
+        </div>
+        <div class="bar-legend" style="margin-top: 12px;">
+          <span class="legend-item"><span class="legend-swatch" style="background: #d62728;"></span> Procedural warm-up (79.2%)</span>
+          <span class="legend-item"><span class="legend-swatch" style="background: #A5A5A5;"></span> Default initialization (77.5%)</span>
+        </div>
+        <figcaption>Procedural warm-up leads to a distinct and stronger optimization trajectory on ImageNet-1K. The model initialized with procedural warm-up achieves 79.2% accuracy vs. 77.5% for default initialization.</figcaption>
+      </figure>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection-title">Accuracy across benchmarks</h3>
+      <p>
+        Procedural warm-up consistently improves downstream performance across all benchmarks, with an average <strong>+3.4%</strong> absolute improvement over default initialization. It outperforms both the Mimetic structured initialization and FractalDB visual warm-up.
+      </p>
+      <div class="table-wrap">
+        <table class="results-table">
+          <caption>Accuracy (%) on image classification benchmarks. Green values denote absolute improvements over default initialization.</caption>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>ImageNet-1K</th>
+              <th>Tiny-ImageNet</th>
+              <th>Food-101</th>
+              <th>CIFAR-10</th>
+              <th>CIFAR-100</th>
+              <th>STL-10</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Default initialization</td>
+              <td>77.49</td>
+              <td>55.42</td>
+              <td>74.52</td>
+              <td>91.29</td>
+              <td>68.52</td>
+              <td>60.52</td>
+            </tr>
+            <tr>
+              <td>Mimetic initialization</td>
+              <td>78.68 <span class="gain">+1.19</span></td>
+              <td>57.20 <span class="gain">+1.78</span></td>
+              <td>79.21 <span class="gain">+4.69</span></td>
+              <td>92.89 <span class="gain">+1.60</span></td>
+              <td>70.72 <span class="gain">+2.20</span></td>
+              <td>65.37 <span class="gain">+4.85</span></td>
+            </tr>
+            <tr>
+              <td>FractalDB warm-up</td>
+              <td>78.06 <span class="gain">+0.57</span></td>
+              <td>55.17 <span class="loss">-0.25</span></td>
+              <td>74.25 <span class="loss">-0.27</span></td>
+              <td>88.98 <span class="loss">-2.31</span></td>
+              <td>64.61 <span class="loss">-3.91</span></td>
+              <td>58.62 <span class="loss">-1.90</span></td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>Procedural warm-up (ours)</strong></td>
+              <td><strong>79.21</strong> <span class="gain">+1.72</span></td>
+              <td><strong>58.20</strong> <span class="gain">+2.78</span></td>
+              <td><strong>79.47</strong> <span class="gain">+4.95</span></td>
+              <td><strong>92.81</strong> <span class="gain">+1.52</span></td>
+              <td><strong>71.98</strong> <span class="gain">+3.46</span></td>
+              <td><strong>66.48</strong> <span class="gain">+5.96</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection-title">Complementary to ImageNet pretraining</h3>
+      <p>
+        The benefits of procedural warm-up persist even when combined with large-scale ImageNet-1K pretraining and subsequent fine-tuning. This confirms that procedural data provides a qualitatively different, complementary training signal, not merely a head-start on standard visual pretraining.
+      </p>
+      <div class="table-wrap">
+        <table class="results-table">
+          <caption>Accuracy (%) of ViT-B models pretrained on ImageNet-1K and fine-tuned on target datasets. The improvements persist throughout large-scale pretraining and fine-tuning stages.</caption>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Tiny-ImageNet</th>
+              <th>Food-101</th>
+              <th>CIFAR-10</th>
+              <th>CIFAR-100</th>
+              <th>STL-10</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Default init. + ImageNet</td>
+              <td>86.59</td>
+              <td>89.64</td>
+              <td>98.59</td>
+              <td>87.54</td>
+              <td>98.55</td>
+            </tr>
+            <tr>
+              <td>Mimetic init. + ImageNet</td>
+              <td>87.29 <span class="gain">+0.70</span></td>
+              <td>90.74 <span class="gain">+1.10</span></td>
+              <td>98.68 <span class="gain">+0.09</span></td>
+              <td>88.78 <span class="gain">+1.24</span></td>
+              <td>98.81 <span class="gain">+0.26</span></td>
+            </tr>
+            <tr>
+              <td>FractalDB + ImageNet</td>
+              <td>88.42 <span class="gain">+1.83</span></td>
+              <td>90.13 <span class="gain">+0.49</span></td>
+              <td>98.41 <span class="loss">-0.18</span></td>
+              <td>88.35 <span class="gain">+0.81</span></td>
+              <td>98.46 <span class="loss">-0.09</span></td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>Procedural warm-up + ImageNet</strong></td>
+              <td><strong>87.93</strong> <span class="gain">+1.34</span></td>
+              <td><strong>90.79</strong> <span class="gain">+1.15</span></td>
+              <td><strong>98.68</strong> <span class="gain">+0.09</span></td>
+              <td><strong>89.20</strong> <span class="gain">+1.66</span></td>
+              <td><strong>98.66</strong> <span class="gain">+0.11</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection-title">Data efficiency for vision</h3>
+      <p>
+        In the substitutive regime, replacing only 1% of the total pretraining budget with procedural data allows the model to match the accuracy of full ImageNet-1K pretraining while using <strong>28% fewer image samples</strong> (approximately 108 million fewer images).
+      </p>
+      <div class="eff-grid eff-grid-single">
+        <div class="eff-panel">
+          <h4 class="eff-panel-title">ImageNet-1K <span class="eff-panel-sub">Vision</span></h4>
+          <div class="eff-chart">
+            <div class="eff-col">
+              <span class="eff-top-label">380M</span>
+              <div class="eff-bar-wrap" style="height: 100%">
+                <div class="eff-fill eff-fill-data" style="height: 100%"></div>
+              </div>
+              <span class="eff-bot-label">Baseline</span>
+            </div>
+            <div class="eff-col">
+              <span class="eff-top-label">264M <span class="eff-top-label-sub">total</span></span>
+              <div class="eff-bar-wrap" style="height: 100%">
+                <div class="eff-fill eff-fill-saved" style="height: 30%">
+                  <span class="eff-saved-text">116M<br>saved</span>
+                </div>
+                <div class="eff-fill eff-fill-data" style="height: 70%"></div>
+              </div>
+              <span class="eff-bot-label">+ Procedural</span>
+            </div>
+          </div>
+          <div class="eff-badge"><strong>28%</strong> fewer images</div>
+        </div>
+      </div>
+      <div class="bar-legend" style="margin-top: 16px;">
+        <span class="legend-item"><span class="legend-swatch" style="background: #6aa3e0;"></span> Image examples</span>
+        <span class="legend-item"><span class="legend-swatch" style="background: repeating-linear-gradient(45deg, #cbd5e1, #cbd5e1 2px, #f1f5f9 2px, #f1f5f9 4px); border: 1px solid #cbd5e1;"></span> Saved</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ANALYSIS ========== -->
+<section id="analysis" class="section section-alt reveal">
+  <div class="container">
+    <h2 class="section-title">Analysis &amp; Insights</h2>
+
+    <div class="subsection">
+      <h3 class="subsection-title">Structure matters, not statistics</h3>
+      <p>
+        Shuffling the token order within procedural sequences, preserving the token distribution but destroying the structural dependencies, eliminates all benefits and can even hurt performance. This confirms that the gains arise from the <em>algorithmic structure</em> in the data, not from token frequency or co-occurrence statistics.
+      </p>
+
+      <div class="structure-evidence">
+        <div class="structure-panel">
+          <h4>LLMs on algorithmic tasks</h4>
+          <p>Different types of procedural data significantly improve specific algorithmic skills. Shuffling the sequences (removing structure) drops performance back to baseline.</p>
+          <div class="algo-charts">
+            <div class="algo-chart">
+              <h5>Context Recall</h5>
+              <div class="algo-bars">
+                <div class="algo-bar-row">
+                  <span class="algo-bar-name">Best shuffled</span>
+                  <div class="algo-bar-track"><div class="algo-bar-fill algo-fill-shuffled" style="width: 10.3%"><span class="algo-val algo-val-outside">10.3</span></div></div>
+                </div>
+                <div class="algo-bar-row">
+                  <span class="algo-bar-name">No pretraining</span>
+                  <div class="algo-bar-track"><div class="algo-bar-fill algo-fill-baseline" style="width: 11.3%"><span class="algo-val algo-val-outside">11.3</span></div></div>
+                </div>
+                <div class="algo-bar-row algo-bar-best">
+                  <span class="algo-bar-name">Dyck</span>
+                  <div class="algo-bar-track"><div class="algo-bar-fill algo-fill-dyck" style="width: 96.9%"><span class="algo-val">96.9</span></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="algo-chart">
+              <h5>Reversed Addition</h5>
+              <div class="algo-bars">
+                <div class="algo-bar-row">
+                  <span class="algo-bar-name">Best shuffled</span>
+                  <div class="algo-bar-track"><div class="algo-bar-fill algo-fill-shuffled" style="width: 65%"><span class="algo-val">65.0</span></div></div>
+                </div>
+                <div class="algo-bar-row">
+                  <span class="algo-bar-name">No pretraining</span>
+                  <div class="algo-bar-track"><div class="algo-bar-fill algo-fill-baseline" style="width: 76.4%"><span class="algo-val">76.4</span></div></div>
+                </div>
+                <div class="algo-bar-row algo-bar-best">
+                  <span class="algo-bar-name">ECA</span>
+                  <div class="algo-bar-track"><div class="algo-bar-fill algo-fill-eca" style="width: 91%"><span class="algo-val">91.0</span></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="algo-chart">
+              <h5>Multiplication</h5>
+              <div class="algo-bars">
+                <div class="algo-bar-row">
+                  <span class="algo-bar-name">Best shuffled</span>
+                  <div class="algo-bar-track"><div class="algo-bar-fill algo-fill-shuffled" style="width: 48.4%"><span class="algo-val">48.4</span></div></div>
+                </div>
+                <div class="algo-bar-row">
+                  <span class="algo-bar-name">No pretraining</span>
+                  <div class="algo-bar-track"><div class="algo-bar-fill algo-fill-baseline" style="width: 42.7%"><span class="algo-val algo-val-outside">42.7</span></div></div>
+                </div>
+                <div class="algo-bar-row algo-bar-best">
+                  <span class="algo-bar-name">Union</span>
+                  <div class="algo-bar-track"><div class="algo-bar-fill algo-fill-union" style="width: 63.5%"><span class="algo-val">63.5</span></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="algo-legend">
+            <span class="legend-item"><span class="legend-swatch" style="background: #C1B5E5;"></span> Dyck</span>
+            <span class="legend-item"><span class="legend-swatch" style="background: #80CBC4;"></span> ECA</span>
+            <span class="legend-item"><span class="legend-swatch" style="background: #F5A9A9;"></span> Union</span>
+            <span class="legend-item"><span class="legend-swatch" style="background: #A9A9A9;"></span> Best shuffled</span>
+            <span class="legend-item"><span class="legend-swatch" style="background: #D5D5D5;"></span> No pretraining</span>
+          </div>
+        </div>
+        <div class="structure-panel">
+          <h4>ViTs on image classification</h4>
+          <p>Shuffling k-Dyck sequences preserves token frequencies but removes hierarchical structure. Performance drops below even random initialization.</p>
+          <div class="table-wrap">
+            <table class="results-table compact-table">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>CIFAR-100 (%)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Default initialization</td>
+                  <td>68.52</td>
+                </tr>
+                <tr class="highlight-row">
+                  <td><strong>k-Dyck warm-up</strong></td>
+                  <td><strong>71.98</strong> <span class="gain">+3.46</span></td>
+                </tr>
+                <tr>
+                  <td>k-Dyck (shuffled sequences)</td>
+                  <td>67.22 <span class="loss">-1.30</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection-title">Skills localize in specific components</h3>
+      <p>
+        The useful information from procedural pretraining is distributed across both attention and MLP layers, but the importance of each depends on the target domain:
+      </p>
+      <div class="insight-cards">
+        <div class="insight-card">
+          <h4>Attention layers</h4>
+          <p>Most important for <strong>structured domains</strong> like pure code (JavaCorpus). Attention-only transfer from procedural pretraining outperforms full-model transfer in some cases.</p>
+        </div>
+        <div class="insight-card">
+          <h4>MLP layers</h4>
+          <p>Most important for <strong>natural language</strong> (WikiText, C4). MLP-only transfer can require even fewer tokens than full-model transfer in the substitutive setting.</p>
+        </div>
+        <div class="insight-card">
+          <h4>Both components</h4>
+          <p>For domains mixing language with structure (documented code, informal math), <strong>full-model transfer</strong> combines benefits from both types of layers.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection-title">Late layers benefit most (ViTs)</h3>
+      <p>
+        In vision transformers, the procedural warm-up primarily affects the <em>late (deep) layers</em>, which account for most of the performance gains. This is a surprising finding, since standard visual pretraining is known to act primarily on early layers that capture low-level features. It suggests that procedural warm-up provides a qualitatively different type of signal.
+      </p>
+      <div class="table-wrap">
+        <table class="results-table compact-table">
+          <caption>Layerwise transfer from procedurally pretrained ViT to CIFAR-100.</caption>
+          <thead>
+            <tr>
+              <th>Transferred Layers</th>
+              <th>CIFAR-100 (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Default initialization</td>
+              <td>68.52</td>
+            </tr>
+            <tr>
+              <td>First 4 layers</td>
+              <td>68.91 <span class="gain">+0.39</span></td>
+            </tr>
+            <tr>
+              <td>Middle 4 layers</td>
+              <td>70.19 <span class="gain">+1.67</span></td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>Final 4 layers</strong></td>
+              <td><strong>71.66</strong> <span class="gain">+3.14</span></td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>All layers</strong></td>
+              <td><strong>71.98</strong> <span class="gain">+3.46</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection-title">Combining multiple types of procedural data</h3>
+      <p>
+        The benefits of different types of procedural data are additive. Two combination strategies show promise:
+      </p>
+      <div class="combine-grid">
+        <div class="combine-card">
+          <h4>Data mixtures</h4>
+          <p>Pretraining on a mixture of multiple types of procedural data (e.g., Set + Union) can outperform either type alone, achieving better perplexity on both language and code.</p>
+        </div>
+        <div class="combine-card">
+          <h4>Weight mixtures</h4>
+          <p>Assembling a model from the attention layers of one procedurally-pretrained model and the MLP layers of another yields strong performance across all evaluation tasks, combining complementary skills modularly.</p>
+        </div>
+      </div>
+      <div class="combine-plots">
+        <figure class="combine-plot">
+          <img src="static/images/scatter_wiki_prefix.png" alt="Scatter plot of perplexity vs mixture diversity on WikiText, showing that mixed procedural data improves language perplexity over single-type baselines">
+          <figcaption>Language (WikiText): mixing procedural data types improves perplexity over single-type baselines.</figcaption>
+        </figure>
+        <figure class="combine-plot">
+          <img src="static/images/scatter_java_prefix_attn.png" alt="Scatter plot of perplexity vs mixture diversity on JavaCorpus, showing that mixed procedural data improves code perplexity over single-type baselines">
+          <figcaption>Code (JavaCorpus): data mixtures can outperform pure procedural pretraining on code.</figcaption>
+        </figure>
+      </div>
+      <div class="table-wrap">
+        <table class="results-table compact-table">
+          <caption>Weight-level combination: SET attention + ECA MLP layers achieve the best average performance.</caption>
+          <thead>
+            <tr>
+              <th>Configuration</th>
+              <th>Haystack</th>
+              <th>Addition</th>
+              <th>Rev. Add.</th>
+              <th>Sort</th>
+              <th>Avg.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>No procedural pretraining</td>
+              <td>11.3</td>
+              <td>59.1</td>
+              <td>76.4</td>
+              <td>82.7</td>
+              <td>57.4</td>
+            </tr>
+            <tr>
+              <td>SET (attention-only)</td>
+              <td>88.9</td>
+              <td>81.1</td>
+              <td>54.4</td>
+              <td>98.1</td>
+              <td>80.6</td>
+            </tr>
+            <tr>
+              <td>ECA (full-model)</td>
+              <td>10.5</td>
+              <td>69.6</td>
+              <td>91.0</td>
+              <td>76.9</td>
+              <td>62.0</td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>SET (attn.) + ECA (MLP)</strong></td>
+              <td><strong>94.4</strong></td>
+              <td><strong>80.3</strong></td>
+              <td><strong>82.9</strong></td>
+              <td><strong>99.4</strong></td>
+              <td><strong>89.3</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BIBTEX ========== -->
+<section id="bibtex" class="section reveal">
+  <div class="container">
+    <h2 class="section-title">BibTeX</h2>
+    <div class="bibtex-full">
+      <h4>Paper 1: Procedural Pretraining (LLMs)</h4>
+<pre class="bibtex-code"><code>@article{jiang2025proceduralpretraining,
+  title={Procedural Pretraining: Warming Up Language Models with Abstract Data},
+  author={Jiang, Liangze and Shinnick, Zachary and van den Hengel, Anton and Saratchandran, Hemanth and Teney, Damien},
+  journal={arXiv preprint arXiv:2601.21725},
+  year={2026},
+}</code></pre>
+
+      <h4>Paper 2: Procedural Warm-Up for ViTs (CVPR 2026)</h4>
+<pre class="bibtex-code"><code>@inproceedings{shinnick2026canyoulearn,
+  title={Can You Learn to See Without Images? Procedural Warm-Up for Vision Transformers},
+  author={Shinnick, Zachary and Jiang, Liangze and Saratchandran, Hemanth and Teney, Damien and van den Hengel, Anton},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year={2026},
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="container"></div>
+</footer>
+
+<script src="static/js/main.js"></script>
+</body>
+</html>

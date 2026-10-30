@@ -419,6 +419,11 @@ img {
 }
 
 /* ===== Paper Cards ===== */
+.follow-on-list {
+  display: grid;
+  gap: 16px;
+}
+
 .paper-cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
